@@ -64,10 +64,17 @@ rightJoin <- rain %>%
   right_join(solar, by="Date") %>%
   select(Date, rainfall, maxTemp, minTemp, SolarExp)
 
+ggplot(data = rightJoin) + 
+  geom_smooth(mapping = aes(x = Date, y = rainfall)) +
+  labs(
+    x = "Date",
+    y =  "Rafnfall in ml",
+    colour = "Cylinders",
+    title = "Rainfall per day ")
 
 # exercise in class
 # mix the joins up depending on the need -
 #   is max_temp impacted by solarExposure in any way? 
 #   what is the min and max temp in Sydney?
 #   does high rainfall correlate with low temperatures?
-
+#group = LOCATION
