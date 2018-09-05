@@ -1,4 +1,4 @@
-setwd("~/Desktop/uni/Semester 2 /Tech Lab 2/Week 6")
+setwd("~/Documents/GitHub/Techlab-week7")
 
 
 library(tidyverse)
