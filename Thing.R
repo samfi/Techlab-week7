@@ -15,12 +15,12 @@ solar <- read_csv("Solarexp.csv")
 ##what can we merge on?
 
 ##date
-
 rain <- rain %>% 
   mutate(Date=paste(Year, Month, Day, sep="-")) %>% 
   mutate(Date = ymd(Date)) %>% 
-  select(-Year, -Month, -Day, -`Product code`, -`Bureau of Meteorology station number`, -`Period over which rainfall was measured (days)`, -Quality) %>% 
+  select( -Day, -`Product code`, -`Bureau of Meteorology station number`, -`Period over which rainfall was measured (days)`, -Quality) %>% 
   rename(rainfall =  `Rainfall amount (millimetres)`) 
+
 
 
 maxTemp <- maxTemp %>% 
@@ -64,13 +64,22 @@ rightJoin <- rain %>%
   right_join(solar, by="Date") %>%
   select(Date, rainfall, maxTemp, minTemp, SolarExp)
 
-ggplot(data = rightJoin) + 
-  geom_smooth(mapping = aes(x = Date, y = rainfall)) +
+finaljoin <- rain %>% 
+  right_join(maxTemp, by ="Date")
+  
+df1 <- rain(Year) 
+result.mean <- mean(df1)
+print(result.mean)
+
+ggplot(data = finaljoin) + 
+  geom_line(mapping = aes(x = Date, y = rainfall, group = Year)) +
   labs(
     x = "Date",
     y =  "Rafnfall in ml",
-    colour = "Cylinders",
-    title = "Rainfall per day ")
+    title = "Rainfall ") 
+
+
+
 
 # exercise in class
 # mix the joins up depending on the need -
@@ -78,3 +87,4 @@ ggplot(data = rightJoin) +
 #   what is the min and max temp in Sydney?
 #   does high rainfall correlate with low temperatures?
 #group = LOCATION
+#Geom line and plot by day 
